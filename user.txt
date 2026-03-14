@@ -1,2 +1,1 @@
-michong:0000:user
-admin:0000:admin
+michong:0000:admin
