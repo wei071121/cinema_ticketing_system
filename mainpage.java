@@ -10,6 +10,8 @@ public class mainpage{
         System.out.println("            W T F   C I N E M A                ");
         System.out.println("=================================================");
         System.out.println("\nWelcome to WTF Cinema! Enjoy your movie experience!\n");
+
+        Login.loginpage();
     }
-    
+
 }
