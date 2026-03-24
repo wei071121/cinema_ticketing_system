@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class Login {
+public class login {
 
     static final String FILE = "user.txt";
 
@@ -50,11 +50,14 @@ public class Login {
             String[] parts = line.split(":");
             if (parts.length >= 3 && parts[0].equals(username) && parts[1].equals(password)) {
                 String role = parts[2];
+                function.clearScreen();
                 if (role.equalsIgnoreCase("admin")) {
                     System.out.println("admin login, welcome" + username + "!");
                 } else {
                     System.out.println("user login, welcome " + username + "!");
+                    menu.mainmenu(input,username);
                 }
+                
                 return;
             }
         }
