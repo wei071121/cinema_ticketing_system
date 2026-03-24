@@ -1,5 +1,7 @@
 public class mainpage{
+
     public static void main(String[] args){
+
         System.out.println("##       ##   ##########    #######");
         System.out.println("##       ##       ##        ##");
         System.out.println("##   ##  ##       ##        ######");
@@ -11,7 +13,18 @@ public class mainpage{
         System.out.println("=================================================");
         System.out.println("\nWelcome to WTF Cinema! Enjoy your movie experience!\n");
 
-        Login.loginpage();
+
+        function.pressEnterToContinue();
+
+
+        function.clearScreen();
+
+
+        login.loginpage();
     }
+
+
+   
+
 
 }
