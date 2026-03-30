@@ -9,8 +9,7 @@ public class PaymentSystem {
             String movieName,
             String showTime,
             String seatType,
-            double seatPrice,
-            double snackPrice){
+            double seatPrice){
 
         double total;
 

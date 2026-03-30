@@ -18,7 +18,7 @@ public class menu {
         switch(choice){
 
             case 1:
-                System.out.println("\n--- Booking Page ---");  
+                BookingSystem.startBooking(username);
                 break;
 
             case 2:

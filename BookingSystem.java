@@ -5,7 +5,7 @@ public class BookingSystem {
 
     static Scanner input = new Scanner(System.in);
 
-    public static void startBooking(){
+    public static void startBooking(String username){
 
         System.out.println("===== MOVIE BOOKING =====");
 
@@ -27,6 +27,7 @@ public class BookingSystem {
             movieName = "Avatar";
 
         }
+        function.clearScreen();
 
         // select time
         System.out.println("Select Show Time:");
@@ -35,6 +36,7 @@ public class BookingSystem {
 
         int timeChoice = input.nextInt();
 
+        function.clearScreen();
         String showTime;
 
         if(timeChoice == 1){
@@ -68,6 +70,7 @@ public class BookingSystem {
             seatType = "Standard";
 
         }
+        function.clearScreen();
 
         // snack
         System.out.println("Add Snack?");
@@ -80,7 +83,7 @@ public class BookingSystem {
 
         if(snackChoice == 1){
 
-            snackPrice = 12;
+            fnb.orderPage(input,username);
 
         }else{
 
@@ -101,8 +104,7 @@ public class BookingSystem {
                 movieName,
                 showTime,
                 seatType,
-                seatPrice,
-                snackPrice
+                seatPrice
         );
 
     }

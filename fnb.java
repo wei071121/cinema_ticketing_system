@@ -122,11 +122,14 @@ public class fnb {
         if(choice >= 0 || choice <= 2){
             switch(choice){
                 case 1:
-                    System.out.print("TNG");
+                    System.out.println("TNG");
+                    break;
                 case 2:
-                    System.out.print("BANK");
+                    System.out.println("BANK");
+                    break;
                 case 0:
                     menu.mainmenu(input,username);
+                    break;
             }
         }
     }
