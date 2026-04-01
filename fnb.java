@@ -122,10 +122,10 @@ public class fnb {
         if(choice >= 0 || choice <= 2){
             switch(choice){
                 case 1:
-                    System.out.println("TNG");
+                    Payment.TNG(input,total);
                     break;
                 case 2:
-                    System.out.println("BANK");
+                    Payment.bank(input,total);
                     break;
                 case 0:
                     menu.mainmenu(input,username);

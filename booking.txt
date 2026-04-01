@@ -1,1 +1,10 @@
-526,Avatar,18:00,Standard,30.0,QR69150
+===== BOOKING =====
+Booking ID: 983
+User: michong
+Movie: Avengers
+Show Time: 18:00
+Seat: VIP
+Total: RM 36.00
+QR Code: QR529223
+====================
+

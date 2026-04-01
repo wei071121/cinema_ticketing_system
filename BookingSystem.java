@@ -10,103 +10,73 @@ public class BookingSystem {
         System.out.println("===== MOVIE BOOKING =====");
 
         // select movie
-        System.out.println("Select Movie:");
         System.out.println("1. Avengers");
         System.out.println("2. Avatar");
-
         int movieChoice = input.nextInt();
 
-        String movieName;
-
-        if(movieChoice == 1){
-
-            movieName = "Avengers";
-
-        }else{
-
-            movieName = "Avatar";
-
-        }
-        function.clearScreen();
+        String movieName = (movieChoice == 1) ? "Avengers" : "Avatar";
 
         // select time
-        System.out.println("Select Show Time:");
+        System.out.println("\nSelect Show Time:");
         System.out.println("1. 18:00");
         System.out.println("2. 21:00");
-
         int timeChoice = input.nextInt();
 
-        function.clearScreen();
-        String showTime;
-
-        if(timeChoice == 1){
-
-            showTime = "18:00";
-
-        }else{
-
-            showTime = "21:00";
-
-        }
+        String showTime = (timeChoice == 1) ? "18:00" : "21:00";
 
         // select seat
-        System.out.println("Select Seat Type:");
+        System.out.println("\nSelect Seat Type:");
         System.out.println("1. VIP (RM36)");
         System.out.println("2. Standard (RM18)");
-
         int seatChoice = input.nextInt();
 
-        double seatPrice;
-        String seatType;
+        double seatPrice = (seatChoice == 1) ? 36 : 18;
+        String seatType = (seatChoice == 1) ? "VIP" : "Standard";
 
-        if(seatChoice == 1){
+        input.nextLine(); // 清buffer
 
-            seatPrice = 36;
-            seatType = "VIP";
+        // ===== TOTAL（只剩座位价格）=====
+        double total = seatPrice;
 
-        }else{
-
-            seatPrice = 18;
-            seatType = "Standard";
-
-        }
-        function.clearScreen();
-
-        // snack
-        System.out.println("Add Snack?");
-        System.out.println("1. Yes (RM12)");
-        System.out.println("2. No");
-
-        int snackChoice = input.nextInt();
-
-        double snackPrice;
-
-        if(snackChoice == 1){
-
-            fnb.orderPage(input,username);
-
-        }else{
-
-            snackPrice = 0;
-
-        }
-
-        // create booking id
+        // booking id
         Random rand = new Random();
-
         int bookingId = rand.nextInt(900) + 100;
 
-        System.out.println("Booking ID: " + bookingId);
+        System.out.println("\nBooking ID: " + bookingId);
+        System.out.printf("TOTAL: RM %.2f\n", total);
 
-        // go to payment
-        PaymentSystem.processPayment(
-                bookingId,
-                movieName,
-                showTime,
-                seatType,
-                seatPrice
-        );
+        // ===== PAYMENT =====
+        System.out.println("\n===== PAYMENT METHOD =====");
+        System.out.println("1. TNG");
+        System.out.println("2. Bank");
+        System.out.print("Your choice: ");
 
+        int method = input.nextInt();
+        input.nextLine();
+
+        boolean success = false;
+
+        if (method == 1) {
+            success = Payment.TNG(input, total);
+        } 
+        else if (method == 2) {
+            success = Payment.bank(input, total);
+        }
+
+        // ===== RESULT =====
+        if (success) {
+            String qr = Payment.generateQR();
+
+            System.out.println("\nPayment Successful!");
+            System.out.println("Booking Confirmed!");
+            System.out.println("QR Code: " + qr);
+
+            Payment.saveBooking(
+                bookingId, username, movieName, showTime, seatType, total, qr
+            );
+
+        } else {
+            System.out.println("\nPayment Failed / Cancelled.");
+        }
     }
-
 }

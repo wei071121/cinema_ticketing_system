@@ -13,7 +13,7 @@ public class PaymentSystem {
 
         double total;
 
-        total = seatPrice + snackPrice;
+        total = seatPrice;
 
         System.out.println("Total Payment: RM " + total);
 
