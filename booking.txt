@@ -28,3 +28,23 @@ Total: RM 36.00
 QR Code: QR519020
 ===========================
 
+===== BOOKING RECORD =====
+Booking ID: 113
+User: test
+Movie: Avengers
+Show Time: 18:00
+Seat: VIP
+Total: RM 36.00
+QR Code: QR232288
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 382
+User: test
+Movie: Avatar
+Show Time: 21:00
+Seat: Standard
+Total: RM 18.00
+QR Code: QR751889
+===========================
+

@@ -57,6 +57,7 @@ public class BookingSystem {
         System.out.print("Your choice: ");
 
         int method = input.nextInt();
+        input.nextLine();
         function.clearScreen();
 
         boolean success = false;

@@ -12,6 +12,7 @@ public class menu {
             System.out.println("1. Booking Ticket");
             System.out.println("2. F&B Order");
             System.out.println("3. Booking history");
+            System.out.println("4. F&B history");
             System.out.println("0. Sign out");
             System.out.print("Enter your choice: ");
 
@@ -49,6 +50,10 @@ public class menu {
                     // 等待用户按回车再返回菜单
                     function.pressEnterToContinue(input);
 
+                    break;
+
+                case 4:
+                    fnbHistory.printFnbHistory(input, username);
                     break;
 
                 case 0:
