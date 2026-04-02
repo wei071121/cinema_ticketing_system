@@ -1,27 +1,40 @@
-import java.util.Random;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Random;
 
 public class Payment {
 
+    // TNG 支付方法
     public static boolean TNG(Scanner input, double amount) {
-
     System.out.println("\n===== TNG E-WALLET PAYMENT =====");
     System.out.printf("Amount to Pay: RM %.2f%n", amount);
 
-    // 输入手机号
+    if (input.hasNextLine()) input.nextLine(); // 清残留回车
+
     System.out.print("Enter Phone Number: ");
     String phone = input.nextLine();
 
-    // 输入密码
     System.out.print("Enter Password (6 digits): ");
     String password = input.nextLine();
 
-    System.out.println("\nProcessing TNG Payment...");
+    System.out.println("Processing Payment...");
+        try {
+            Thread.sleep(2000); // 暂停 2000 毫秒，也就是 2 秒
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Payment Completed!");
 
-    // 简单验证
+    // ✅ 不要在这里按回车，直接返回
     if (phone.matches("\\d{10,11}") && password.matches("\\d{6}")) {
         System.out.println("Login Successful!");
         System.out.println("Payment Approved via TNG!");
+        try {
+            Thread.sleep(2000); // 暂停 2000 毫秒，也就是 2 秒
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return true;
     } else {
         System.out.println("Payment Failed! Invalid phone or password.");
@@ -29,11 +42,13 @@ public class Payment {
     }
 }
 
-    // ===== BANK PAYMENT =====
+    // BANK 支付方法
     public static boolean bank(Scanner input, double amount) {
 
         System.out.println("\n===== BANK PAYMENT =====");
         System.out.printf("Amount to Pay: RM %.2f%n", amount);
+
+        if (input.hasNextLine()) input.nextLine();
 
         System.out.print("Enter Bank Name: ");
         String bankName = input.nextLine();
@@ -46,47 +61,53 @@ public class Payment {
 
         System.out.println("\nProcessing Bank Payment...");
 
-        // 简单验证
         if (pin.length() == 6 && pin.matches("\\d+")) {
             System.out.println("Payment Approved by Bank!");
+            function.pressEnterToContinue(input);
             return true;
         } else {
             System.out.println("Payment Failed! Invalid PIN.");
+            function.pressEnterToContinue(input);
             return false;
         }
     }
 
-
-
-public static String generateQR() {
-    java.util.Random rand = new java.util.Random();
-    int num = rand.nextInt(900000) + 100000;
-    return "QR" + num;
-}
-
-public static void saveBooking(
-        int bookingId,
-        String username,
-        String movieName,
-        String showTime,
-        String seatType,
-        double total,
-        String qr) {
-
-    try (java.io.FileWriter fw = new java.io.FileWriter("booking.txt", true)) {
-
-        fw.write("===== BOOKING =====\n");
-        fw.write("Booking ID: " + bookingId + "\n");
-        fw.write("User: " + username + "\n");
-        fw.write("Movie: " + movieName + "\n");
-        fw.write("Show Time: " + showTime + "\n");
-        fw.write("Seat: " + seatType + "\n");
-        fw.write(String.format("Total: RM %.2f\n", total));
-        fw.write("QR Code: " + qr + "\n");
-        fw.write("====================\n\n");
-
-    } catch (java.io.IOException e) {
-        System.out.println("Error saving booking: " + e.getMessage());
+    // 生成随机 QR
+    public static String generateQR() {
+        Random rand = new Random();
+        int num = rand.nextInt(900000) + 100000;
+        return "QR" + num;
     }
-}
+
+    // 保存到文件 + 打印收据
+    public static void saveBooking(
+            int bookingId,
+            String username,
+            String movieName,
+            String showTime,
+            String seatType,
+            double total,
+            String qr) {
+
+        StringBuilder receipt = new StringBuilder();
+        receipt.append("===== BOOKING RECORD =====\n");
+        receipt.append("Booking ID: ").append(bookingId).append("\n");
+        receipt.append("User: ").append(username).append("\n");
+        receipt.append("Movie: ").append(movieName).append("\n");
+        receipt.append("Show Time: ").append(showTime).append("\n");
+        receipt.append("Seat: ").append(seatType).append("\n");
+        receipt.append(String.format("Total: RM %.2f%n", total));
+        receipt.append("QR Code: ").append(qr).append("\n");
+        receipt.append("===========================\n\n");
+
+        // 打印收据
+        System.out.println(receipt.toString());
+
+        // 写到文件
+        try (FileWriter fw = new FileWriter("booking.txt", true)) {
+            fw.write(receipt.toString());
+        } catch (IOException e) {
+            System.out.println("Error saving booking: " + e.getMessage());
+        }
+    }
 }

@@ -15,6 +15,7 @@ public class BookingSystem {
         int movieChoice = input.nextInt();
 
         String movieName = (movieChoice == 1) ? "Avengers" : "Avatar";
+        function.clearScreen();
 
         // select time
         System.out.println("\nSelect Show Time:");
@@ -23,6 +24,7 @@ public class BookingSystem {
         int timeChoice = input.nextInt();
 
         String showTime = (timeChoice == 1) ? "18:00" : "21:00";
+        function.clearScreen();
 
         // select seat
         System.out.println("\nSelect Seat Type:");
@@ -34,6 +36,7 @@ public class BookingSystem {
         String seatType = (seatChoice == 1) ? "VIP" : "Standard";
 
         input.nextLine(); // 清buffer
+        function.clearScreen();
 
         // ===== TOTAL（只剩座位价格）=====
         double total = seatPrice;
@@ -44,6 +47,8 @@ public class BookingSystem {
 
         System.out.println("\nBooking ID: " + bookingId);
         System.out.printf("TOTAL: RM %.2f\n", total);
+        function.pressEnterToContinue(input);
+        function.clearScreen();
 
         // ===== PAYMENT =====
         System.out.println("\n===== PAYMENT METHOD =====");
@@ -52,7 +57,7 @@ public class BookingSystem {
         System.out.print("Your choice: ");
 
         int method = input.nextInt();
-        input.nextLine();
+        function.clearScreen();
 
         boolean success = false;
 
@@ -71,12 +76,14 @@ public class BookingSystem {
             System.out.println("Booking Confirmed!");
             System.out.println("QR Code: " + qr);
 
-            Payment.saveBooking(
-                bookingId, username, movieName, showTime, seatType, total, qr
-            );
+            function.clearScreen();
+            Payment.saveBooking(bookingId, username, movieName, showTime, seatType, total, qr);
 
+            // 按回车继续
+            function.pressEnterToContinue(input);
         } else {
             System.out.println("\nPayment Failed / Cancelled.");
+            function.pressEnterToContinue(input);
         }
-    }
+}
 }
