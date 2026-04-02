@@ -84,8 +84,5 @@ public class BookingHistory {
         }
     }
 
-    // main方法测试
-    public static void main(String[] args) {
-        printHistory("booking.txt");
-    }
+
 }

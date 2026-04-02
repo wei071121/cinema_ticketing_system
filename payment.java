@@ -10,7 +10,7 @@ public class Payment {
     System.out.println("\n===== TNG E-WALLET PAYMENT =====");
     System.out.printf("Amount to Pay: RM %.2f%n", amount);
 
-    if (input.hasNextLine()) input.nextLine(); // 清残留回车
+
 
     System.out.print("Enter Phone Number: ");
     String phone = input.nextLine();
@@ -48,12 +48,10 @@ public class Payment {
         System.out.println("\n===== BANK PAYMENT =====");
         System.out.printf("Amount to Pay: RM %.2f%n", amount);
 
-        if (input.hasNextLine()) input.nextLine();
-
         System.out.println("Enter Bank Name: ");
         System.out.println("1. PUBLIC BANK: ");
         System.out.println("2. MAE ");
-        System.out.println("Your choice");
+        System.out.print("Your choice: ");
         String bankname = input.nextLine();
 
         System.out.print("Enter Account Number: ");
