@@ -3,7 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
-public class Payment {
+public class payment {
 
     // TNG 支付方法
     public static boolean TNG(Scanner input, double amount) {
