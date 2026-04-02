@@ -18,7 +18,7 @@ public class Payment {
     System.out.print("Enter Password (6 digits): ");
     String password = input.nextLine();
 
-    System.out.println("Processing Payment...");
+    System.out.println("Processing Payment...\n");
         try {
             Thread.sleep(2000); // 暂停 2000 毫秒，也就是 2 秒
         } catch (InterruptedException e) {
