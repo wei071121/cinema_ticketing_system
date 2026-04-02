@@ -1,40 +1,10 @@
-===== BOOKING RECEIPT =====
-Booking ID: 821
-User: michong
-Movie: Avengers
-Show Time: 18:00
-Seat: VIP
-Total: RM 36.00
-QR Code: QR690480
-===========================
-
-===== BOOKING RECEIPT =====
-Booking ID: 713
+===== BOOKING RECORD =====
+Booking ID: 803
 User: michong
 Movie: Avatar
 Show Time: 21:00
 Seat: Standard
 Total: RM 18.00
-QR Code: QR237158
-===========================
-
-===== BOOKING RECEIPT =====
-Booking ID: 439
-User: michong
-Movie: Avengers
-Show Time: 18:00
-Seat: VIP
-Total: RM 36.00
-QR Code: QR912588
-===========================
-
-===== BOOKING RECORD =====
-Booking ID: 342
-User: michong
-Movie: Avengers
-Show Time: 18:00
-Seat: VIP
-Total: RM 36.00
-QR Code: QR932405
+QR Code: QR784251
 ===========================
 

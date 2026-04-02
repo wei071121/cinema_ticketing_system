@@ -50,8 +50,11 @@ public class Payment {
 
         if (input.hasNextLine()) input.nextLine();
 
-        System.out.print("Enter Bank Name: ");
-        String bankName = input.nextLine();
+        System.out.println("Enter Bank Name: ");
+        System.out.println("1. PUBLIC BANK: ");
+        System.out.println("2. MAE ");
+        System.out.println("Your choice");
+        String bankname = input.nextLine();
 
         System.out.print("Enter Account Number: ");
         String accNumber = input.nextLine();
