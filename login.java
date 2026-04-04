@@ -116,12 +116,13 @@ static List<String> readUsers() {
         // 写入文件
         try (FileWriter fw = new FileWriter("user.txt", true)) {
             fw.write(username + ":" + password + ":" + role + "\n");
-            System.out.println("Register successful!");
+            System.out.println("\nRegister successful!\n");
         } catch (IOException e) {
             System.out.println("Error saving user: " + e.getMessage());
         }
 
         function.pressEnterToContinue(input);
+        function.clearScreen();
     }
 
     // 检查用户是否已存在

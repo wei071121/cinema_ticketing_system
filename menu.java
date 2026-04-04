@@ -17,7 +17,7 @@ public class menu {
             System.out.print("Enter your choice: ");
 
             choice = input.nextInt();
-            input.nextLine(); // 清掉残留回车
+            input.nextLine();
             function.clearScreen();
 
             switch(choice) {
