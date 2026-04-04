@@ -1,5 +1,5 @@
 package staff;
 
-public class staffmenu {
+public class staffMenu {
     
 }

@@ -48,11 +48,11 @@ public class payment {
         System.out.println("\n===== BANK PAYMENT =====");
         System.out.printf("Amount to Pay: RM %.2f%n", amount);
 
-        System.out.println("Enter Bank Name: ");
         System.out.println("1. PUBLIC BANK");
         System.out.println("2. MAE");
         System.out.print("Your choice: ");
-        String bankname = input.nextLine();
+        int bankname = input.nextInt();
+        if (bankname >= 1 && bankname <= 2){
 
         System.out.print("Enter Account Number: ");
         String accNumber = input.nextLine();
@@ -69,6 +69,12 @@ public class payment {
         } else {
             System.out.println("Payment Failed! Invalid PIN.");
             function.pressEnterToContinue(input);
+            return false;
+        }
+        }else{
+            function.clearScreen();
+            System.out.printf("Bro only have 1 or 2 why you want type %s",bankname,"!!!!!!!!!!!!!!");
+            bank(input,amount);
             return false;
         }
     }

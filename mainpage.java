@@ -3,7 +3,7 @@ public class mainpage{
 
     public static void main(String[] args){
         Scanner input = new Scanner (System.in);
-
+        function.clearScreen();
         System.out.println("##       ##   ##########    #######");
         System.out.println("##       ##       ##        ##");
         System.out.println("##   ##  ##       ##        ######");
