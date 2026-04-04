@@ -8,7 +8,7 @@ public class fnb {
 
     public static void orderPage(Scanner input, String username) {
         String[] items = {"Popcorn", "Soda", "Nachos", "Hotdog"};
-        double[] prices = {10.0, 5.0, 12.0, 8.0};
+        double[] prices = {10.00, 5.00, 12.00, 8.00};
         int[] quantities = new int[items.length];
 
         boolean running = true;
@@ -31,17 +31,21 @@ public class fnb {
                 System.out.print("Enter quantity to add for " + items[index] + ": ");
                 int qty = getQuantity(input);
                 quantities[index] += qty;
+                function.clearScreen();
                 System.out.println(qty + " x " + items[index] + " added.");
+                
             } else if (choice.equals("R")) {
                 int index = selectItem(input, items, "remove");
                 if (index != -1) {
                     System.out.print("Enter quantity to remove: ");
                     int qty = getQuantity(input);
+                    function.clearScreen();
                     if (qty > quantities[index]) qty = quantities[index];
                     quantities[index] -= qty;
                     System.out.println(qty + " x " + items[index] + " removed.");
                 }
             } else if (choice.equals("C")) {
+                function.clearScreen();
                 // Checkout & Pay
                 boolean paid = checkoutAndPay(input, username, items, prices, quantities);
                 if (paid) {
@@ -101,20 +105,28 @@ public class fnb {
     public static boolean checkoutAndPay(Scanner input, String username, String[] items, double[] prices, int[] quantities) {
         double total = 0;
         StringBuilder receipt = new StringBuilder();
-        receipt.append("===== F&B ORDER RECEIPT =====\n");
+        function.clearScreen();
+        receipt.append("=========== F&B ORDER RECEIPT ==========\n");
         receipt.append("User: ").append(username).append("\n");
 
         for (int i = 0; i < items.length; i++) {
             if (quantities[i] > 0) {
                 double itemTotal = quantities[i] * prices[i];
                 total += itemTotal;
-                receipt.append(quantities[i]).append(" x ").append(items[i])
-                        .append(" = RM").append(itemTotal).append("\n");
-            }
+        receipt.append(items[i])
+               .append("\t(RM")
+               .append(String.format("%.2f", prices[i]))
+               .append(")")
+               .append(" x ")
+               .append(quantities[i])
+               .append("\t\tRM")
+               .append(String.format("%.2f", itemTotal))
+               .append("\n");
+    }
         }
-
-        receipt.append("TOTAL: RM").append(total).append("\n");
-        receipt.append("============================\n");
+        receipt.append("-----------------------------------------\n");
+        receipt.append("TOTAL: \t\t\t\tRM").append(String.format("%.2f", total)).append("\n");
+        receipt.append("=========================================\n");
 
         // 打印收据
         System.out.println(receipt.toString());
@@ -144,10 +156,10 @@ public class fnb {
         boolean paid = false;
         switch (choice) {
             case 1:
-                paid = Payment.TNG(input, total); // 确保 Payment 完成后返回 true
+                paid = payment.TNG(input, total); // 确保 Payment 完成后返回 true
                 break;
             case 2:
-                paid = Payment.bank(input, total);
+                paid = payment.bank(input, total);
                 break;
             case 0:
                 System.out.println("Order cancelled.");
