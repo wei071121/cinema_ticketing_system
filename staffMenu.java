@@ -19,6 +19,7 @@ public class staffMenu {
             System.out.println("3. Remove Movie");
             System.out.println("4. Add Showtime");
             System.out.println("5. Remove Showtime");
+            System.out.println("6. Report Best Selling Movies/Peak Hours");
             System.out.println("0. Logout");
             System.out.print("Your choice: ");
             choice = input.nextInt(); input.nextLine();
@@ -29,6 +30,7 @@ public class staffMenu {
                 case 3: removeMovie(); break;
                 case 4: addShowtime(); break;
                 case 5: removeShowtime(); break;
+                case 6: ReportSystem.showReports(input); break;
                 case 0: System.out.println("Logging out..."); function.pressEnterToContinue(input); break;
                 default: System.out.println("Invalid input!"); function.pressEnterToContinue(input); break;
             }
