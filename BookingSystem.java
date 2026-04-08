@@ -57,21 +57,21 @@ public class BookingSystem {
         boolean success = false;
 
         if (method == 1) {
-            success = Payment.TNG(input, total);
+            success = payment.TNG(input, total);
         } 
         else if (method == 2) {
-            success = Payment.bank(input, total);
+            success = payment.bank(input, total);
         }
 
         // ===== RESULT =====
         if (success) {
-            String qr = Payment.generateQR();
+            String qr = payment.generateQR();
 
             System.out.println("\nPayment Successful!");
             System.out.println("Booking Confirmed!");
             System.out.println("QR Code: " + qr);
 
-            Payment.saveBooking(
+            payment.saveBooking(
                 bookingId, username, movieName, showTime, seatType, total, qr
             );
 

@@ -122,10 +122,10 @@ public class fnb {
         if(choice >= 0 || choice <= 2){
             switch(choice){
                 case 1:
-                    Payment.TNG(input,total);
+                    payment.TNG(input,total);
                     break;
                 case 2:
-                    Payment.bank(input,total);
+                    payment.bank(input,total);
                     break;
                 case 0:
                     menu.mainmenu(input,username);

@@ -20,10 +20,7 @@ public class ReportSystem {
 
         try{
 
-            BufferedReader br =
-                    new BufferedReader(
-                            new FileReader("booking.txt")
-                    );
+            BufferedReader br =new BufferedReader(new FileReader("booking.txt"));
 
             String line;
 

@@ -1,7 +1,6 @@
-import java.util.Random;
 import java.util.Scanner;
 
-public class Payment {
+public class payment {
 
     public static boolean TNG(Scanner input, double amount) {
 
