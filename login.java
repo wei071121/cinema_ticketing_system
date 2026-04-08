@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-import staff.staffMenu;
+
 
 
 public class login {
@@ -54,6 +54,7 @@ public class login {
                 function.clearScreen();
                 if (role.equalsIgnoreCase("admin")) {
                     System.out.println("admin login, welcome" + username + "!");
+                   staffMenu.mainMenu(username);
                     
                 } else {
                     System.out.println("user login, welcome " + username + "!");

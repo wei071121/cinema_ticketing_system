@@ -24,12 +24,13 @@ public class payment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Payment Completed!");
+        
 
     // ✅ 不要在这里按回车，直接返回
     if (phone.matches("\\d{10,11}") && password.matches("\\d{6}")) {
         System.out.println("Login Successful!");
         System.out.println("Payment Approved via TNG!");
+        System.out.println("Payment Completed!");
         try {
             Thread.sleep(2000); // 暂停 2000 毫秒，也就是 2 秒
         } catch (InterruptedException e) {
