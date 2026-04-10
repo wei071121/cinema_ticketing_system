@@ -18,3 +18,13 @@ Total: RM 18.00
 QR Code: QR717090
 ===========================
 
+===== BOOKING RECORD =====
+Booking ID: 198
+User: michong
+Movie: Avengers
+Show Time: 18:00
+Seat: VIP
+Total: RM 36.00
+QR Code: QR272924
+===========================
+
