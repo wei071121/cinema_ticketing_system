@@ -138,13 +138,13 @@ public class fnb {
             System.out.println("Error saving order: " + e.getMessage());
         }
 
-        // 支付方式
         int choice = -1;
         while (choice < 0 || choice > 2) {
             System.out.println("1. TNG");
             System.out.println("2. BANK");
             System.out.println("0. Cancel order");
             System.out.print("Your choice: ");
+
             if (input.hasNextInt()) {
                 choice = input.nextInt();
                 input.nextLine();
@@ -153,18 +153,18 @@ public class fnb {
             }
         }
 
-        boolean paid = false;
-        switch (choice) {
-            case 1:
-                paid = payment.TNG(input, total); // 确保 Payment 完成后返回 true
-                break;
-            case 2:
-                paid = payment.bank(input, total);
-                break;
-            case 0:
-                System.out.println("Order cancelled.");
-                break;
+        Payment payment;
+
+        if (choice == 1) {
+            payment = new TNGPayment(total);
+        } else if (choice == 2) {
+            payment = new BankPayment(total);
+        } else {
+            System.out.println("Order cancelled.");
+            return false;
         }
+
+        boolean paid = payment.pay(input);
 
         if (paid) {
             System.out.println(receipt.toString());

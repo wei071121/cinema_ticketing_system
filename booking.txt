@@ -1,20 +1,70 @@
 ===== BOOKING RECORD =====
-Booking ID: 158
+Booking ID: 894
 User: michong
 Movie: Avengers
-Show Time: 18:00
-Seat: VIP
-Total: RM 36.00
-QR Code: QR190632
+Show Time: 10:00
+Seat: D3
+Total: RM 18.00
+QR Code: QR886737
 ===========================
 
 ===== BOOKING RECORD =====
-Booking ID: 842
+Booking ID: 694
+User: michong
+Movie: Titanic
+Show Time: 10:00
+Seat: C3
+Total: RM 18.00
+QR Code: QR908371
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 629
 User: michong
 Movie: Avengers
-Show Time: 21:00
-Seat: Standard
-Total: RM 18.00
-QR Code: QR717090
+Show Time: 10:00
+Seat: A1
+Total: RM 36.00
+QR Code: QR727981
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 487
+User: michong
+Movie: Avengers
+Show Time: 10:00
+Seat: A1
+Total: RM 36.00
+QR Code: QR464960
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 289
+User: michong
+Movie: Avengers
+Show Time: 10:00
+Seat: A2
+Total: RM 36.00
+QR Code: QR948969
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 389
+User: michong
+Movie: lol
+Show Time: 15:00
+Seat: A1
+Total: RM 36.00
+QR Code: QR153886
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 972
+User: michong
+Movie: Avengers
+Show Time: 13:00
+Seat: A1
+Total: RM 36.00
+QR Code: QR313891
 ===========================
 
