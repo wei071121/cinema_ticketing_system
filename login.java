@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-import staff.staffMenu;
+
 
 
 public class login {
@@ -54,6 +54,7 @@ public class login {
                 function.clearScreen();
                 if (role.equalsIgnoreCase("admin")) {
                     System.out.println("admin login, welcome" + username + "!");
+                   staffMenu.mainMenu(username);
                     
                 } else {
                     System.out.println("user login, welcome " + username + "!");
@@ -116,12 +117,13 @@ static List<String> readUsers() {
         // 写入文件
         try (FileWriter fw = new FileWriter("user.txt", true)) {
             fw.write(username + ":" + password + ":" + role + "\n");
-            System.out.println("Register successful!");
+            System.out.println("\nRegister successful!\n");
         } catch (IOException e) {
             System.out.println("Error saving user: " + e.getMessage());
         }
 
         function.pressEnterToContinue(input);
+        function.clearScreen();
     }
 
     // 检查用户是否已存在
