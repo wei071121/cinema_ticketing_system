@@ -23,6 +23,7 @@ public class menu {
             switch(choice) {
 
                 case 1:
+                    BookingSystem.loadMoviesFromFile("movies.txt");
                     BookingSystem.startBooking(username);
                     break;
 
