@@ -9,35 +9,46 @@ public class Hall {
     private char[][] seats;
 
     public Hall(String name, int rows, int cols) {
-        this.name = name;
-        this.rows = rows;
-        this.cols = cols;
+    this.name = name;
+    this.rows = rows;
+    this.cols = cols;
 
-        seats = new char[rows][cols];
+    seats = new char[rows][cols];
 
-        for (int i = 0; i < rows; i++) {
-            Arrays.fill(seats[i], 'O');
-        }
+    for (int i = 0; i < rows; i++) {
+        Arrays.fill(seats[i], 'O');
     }
+
+
+    }
+
 
     public void printSeats() {
-        System.out.println("Seat Map:");
+    System.out.println("Seat Map:");
 
-        System.out.print("   ");
-        for (int i = 1; i <= cols; i++) {
-            System.out.print(i + " ");
+    System.out.print("   ");
+    for (int i = 1; i <= cols; i++) {
+        System.out.print(i + " ");
+    }
+    System.out.println();
+
+    for (int r = 0; r < rows; r++) {
+
+        System.out.print((char)('A' + r) + "  ");
+
+        for (int c = 0; c < cols; c++) {
+
+            if (seats[r][c] == 'X') {
+                System.out.print("X ");
+            } else if (isVIP(r)) {
+                System.out.print("V ");
+            } else {
+                System.out.print("O ");
+            }
         }
         System.out.println();
-
-        for (int r = 0; r < rows; r++) {
-            System.out.print((char)('A' + r) + "  ");
-
-            for (int c = 0; c < cols; c++) {
-                System.out.print(seats[r][c] + " ");
-            }
-            System.out.println();
-        }
     }
+}
 
     public boolean bookSeat(String seat) {
         int r = seat.charAt(0) - 'A';
@@ -96,4 +107,8 @@ public class Hall {
             System.out.println("Save error: " + e.getMessage());
         }
     }
+
+    public boolean isVIP(int r) {
+    return r < 2; // 前两排 VIP
+}
 }

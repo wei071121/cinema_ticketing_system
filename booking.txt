@@ -48,3 +48,23 @@ Total: RM 36.00
 QR Code: QR948969
 ===========================
 
+===== BOOKING RECORD =====
+Booking ID: 389
+User: michong
+Movie: lol
+Show Time: 15:00
+Seat: A1
+Total: RM 36.00
+QR Code: QR153886
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 972
+User: michong
+Movie: Avengers
+Show Time: 13:00
+Seat: A1
+Total: RM 36.00
+QR Code: QR313891
+===========================
+
