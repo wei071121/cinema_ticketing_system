@@ -4,42 +4,55 @@ import java.util.*;
 public class fnbHistory {
 
     public static void printFnbHistory(Scanner input, String username) {
-        String fileName = "order.txt"; // F&B 订单文件
+
+        String fileName = "order.txt";
         boolean hasRecord = false;
         StringBuilder allRecords = new StringBuilder();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+
             String line;
             boolean isUserRecord = false;
             StringBuilder record = new StringBuilder();
 
             while ((line = br.readLine()) != null) {
 
-                // 检查订单开始
-                if (line.startsWith("===== F&B ORDER RECEIPT =====")) {
-                    // 下一行应该是 User
-                    String userLine = br.readLine();
+                // ===== 订单开始 =====
+                if (line.contains("F&B ORDER RECEIPT")) {
+
+                    String userLine = br.readLine(); // 读取 User 行
+
                     if (userLine != null && userLine.toLowerCase().contains(username.toLowerCase())) {
+
                         isUserRecord = true;
-                        record.setLength(0); // 清空
-                        record.append(line).append("\n"); // 添加 F&B ORDER RECEIPT 行
-                        record.append(userLine).append("\n"); // 添加 User 行
+                        record.setLength(0); // 清空旧记录
+
+                        record.append(line).append("\n");
+                        record.append(userLine).append("\n");
+
                     } else {
                         isUserRecord = false;
                     }
-                } else if (isUserRecord) {
+
+                    continue; // 很重要，避免重复处理
+                }
+
+                // ===== 如果是当前用户订单，继续记录 =====
+                if (isUserRecord) {
                     record.append(line).append("\n");
                 }
 
-                // 订单结束
-                if (line.startsWith("============================") && isUserRecord) {
+                // ===== 订单结束 =====
+                if (line.contains("====") && isUserRecord) {
+
                     allRecords.append(record.toString()).append("\n");
+
                     hasRecord = true;
                     isUserRecord = false;
                 }
             }
 
-            // 清屏显示全部记录
+            // ===== 输出 =====
             function.clearScreen();
 
             if (hasRecord) {

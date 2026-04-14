@@ -75,8 +75,17 @@ public class BookingSystem {
             System.out.println((i + 1) + ". " + movies.get(i).name);
         }
 
-        int movieChoice = input.nextInt() - 1;
+        System.out.println("0. Exit");
+        int movieChoice = 0;
         input.nextLine();
+
+        if (movieChoice == 0){
+            menu.mainmenu(input, username);
+        }
+
+        
+        movieChoice = input.nextInt() - 1;
+
 
         Movie movie = movies.get(movieChoice);
 
