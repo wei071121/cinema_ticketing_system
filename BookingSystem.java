@@ -39,15 +39,15 @@ public class BookingSystem {
     }
 
     // ===== SHOWTIME =====
-   static class Showtime {
-    String time;
-    String hallSize; // Small / Medium / Large
+    static class Showtime {
+        String time;
+        String hallSize;
 
-    public Showtime(String time, String hallSize) {
-        this.time = time;
-        this.hallSize = hallSize;
+        public Showtime(String time, String hallSize) {
+            this.time = time;
+            this.hallSize = hallSize;
+        }
     }
-}
 
     // ===== MOVIE =====
     static class Movie {
@@ -61,35 +61,46 @@ public class BookingSystem {
 
     static List<Movie> movies = new ArrayList<>();
 
-    
-
     // ===== MAIN BOOKING =====
     public static void startBooking(String username) {
 
         if (movies.isEmpty()) {
-        loadMoviesFromFile("movies.txt");
-    }
+            loadMoviesFromFile("movies.txt");
+        }
+
+        if (movies.isEmpty()) {
+            System.out.println("No movies available!");
+            return;
+        }
 
         System.out.println("===== MOVIE LIST =====");
+
         for (int i = 0; i < movies.size(); i++) {
             System.out.println((i + 1) + ". " + movies.get(i).name);
         }
 
         System.out.println("0. Exit");
-        int movieChoice = 0;
-        input.nextLine();
 
-        if (movieChoice == 0){
+        int movieChoice = input.nextInt();
+
+        // EXIT
+        if (movieChoice == 0) {
             menu.mainmenu(input, username);
+            return;
         }
 
-        
-        movieChoice = input.nextInt() - 1;
+        movieChoice = movieChoice - 1;
 
+        // VALIDATION
+        if (movieChoice < 0 || movieChoice >= movies.size()) {
+            System.out.println("Invalid movie selection!");
+            return;
+        }
 
         Movie movie = movies.get(movieChoice);
 
         System.out.println("\n===== SHOWTIME =====");
+
         for (int i = 0; i < movie.showtimes.size(); i++) {
             Showtime s = movie.showtimes.get(i);
             System.out.println((i + 1) + ". " + s.time + " (" + s.hallSize + ")");
@@ -98,15 +109,21 @@ public class BookingSystem {
         int timeChoice = input.nextInt() - 1;
         input.nextLine();
 
+        // VALIDATION
+        if (timeChoice < 0 || timeChoice >= movie.showtimes.size()) {
+            System.out.println("Invalid showtime!");
+            return;
+        }
+
         Showtime show = movie.showtimes.get(timeChoice);
 
-        
-
         // =======================
-        // ✅ SEAT SYSTEM (FIXED)
+        // SEAT SYSTEM
         // =======================
         Hall hall = createHall(show.hallSize);
+
         new File("seats").mkdirs();
+
         String seatFile = "seats/" + movie.name + "_" + show.time.replace(":", "-") + ".txt";
 
         hall.loadSeats(seatFile);
@@ -134,6 +151,7 @@ public class BookingSystem {
 
         int bookingId = new Random().nextInt(900) + 100;
 
+        // ===== PAYMENT =====
         System.out.println("\nChoose Payment Method:");
         System.out.println("1. TNG");
         System.out.println("2. BANK");
@@ -207,68 +225,55 @@ public class BookingSystem {
         }
     }
 
-public static void loadMoviesFromFile(String filePath) {
+    // ===== LOAD MOVIES =====
+    public static void loadMoviesFromFile(String filePath) {
 
-    movies.clear();
+        movies.clear();
 
-    try (Scanner sc = new Scanner(new File(filePath))) {
+        try (Scanner sc = new Scanner(new File(filePath))) {
 
-        Movie currentMovie = null;
+            Movie currentMovie = null;
 
-        while (sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
 
-            String line = sc.nextLine().trim();
+                String line = sc.nextLine().trim();
 
-            if (line.isEmpty()) continue;
+                if (line.isEmpty()) continue;
 
-            if (line.equals("---")) {
-                currentMovie = null;
-                continue;
+                if (line.equals("---")) {
+                    currentMovie = null;
+                    continue;
+                }
+
+                String[] parts = line.split("\\|");
+
+                if (parts.length == 4) {
+                    currentMovie = new Movie(parts[0]);
+                    movies.add(currentMovie);
+                } else if (parts.length == 2 && currentMovie != null) {
+                    currentMovie.showtimes.add(
+                            new Showtime(parts[0], parts[1])
+                    );
+                }
             }
 
-            String[] parts = line.split("\\|");
-
-            // 🎬 MOVIE LINE (4 parts)
-            if (parts.length == 4) {
-
-                String name = parts[0];
-
-                currentMovie = new Movie(name);
-                movies.add(currentMovie);
-            }
-
-            // 🎟 SHOWTIME LINE (2 parts)
-            else if (parts.length == 2 && currentMovie != null) {
-
-                String time = parts[0];
-                String size = parts[1];
-
-                currentMovie.showtimes.add(
-                    new Showtime(time, size)
-                );
-            }
+        } catch (Exception e) {
+            System.out.println("Error loading movies: " + e.getMessage());
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
-public static Hall createHall(String size) {
+    // ===== CREATE HALL =====
+    public static Hall createHall(String size) {
 
-    switch (size.toLowerCase()) {
-
-        case "small":
-            return new Hall("Small", 4, 6);
-
-        case "medium":
-            return new Hall("Medium", 6, 8);
-
-        case "large":
-            return new Hall("Large", 8, 10);
-
-        default:
-            return new Hall("Standard", 6, 8);
+        switch (size.toLowerCase()) {
+            case "small":
+                return new Hall("Small", 4, 6);
+            case "medium":
+                return new Hall("Medium", 6, 8);
+            case "large":
+                return new Hall("Large", 8, 10);
+            default:
+                return new Hall("Standard", 6, 8);
+        }
     }
-}
 }
