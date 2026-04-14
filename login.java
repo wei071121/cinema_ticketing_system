@@ -13,6 +13,7 @@ public class login {
         System.out.println("====CINIMA SYSTEM====");
         System.out.println("1. Login");
         System.out.println("2. Register");
+        System.out.println("3. Froget password");
         System.out.println("0. Exit");
         System.out.print("pls enter your choose: ");
         int userchoose = input.nextInt();
@@ -24,6 +25,9 @@ public class login {
                 break;
             case 2:
                 login.registerPage(input);
+                break;
+            case 3:
+                ForgotPassword.forgotPassword("user.txt",input);
                 break;
             case 0:
                 System.out.print("end the system");
