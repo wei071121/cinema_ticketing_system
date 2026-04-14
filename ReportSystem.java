@@ -1,107 +1,102 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.HashMap;
+import java.io.*;
+import java.util.*;
 
 public class ReportSystem {
 
-    public static void showReports(){
+    public static void showReports(Scanner input) {
+        function.clearScreen();
 
-        bestSellingMovie();
+        bestSellingMovies();
         peakHours();
 
+        function.pressEnterToContinue(input);
     }
 
-    public static void bestSellingMovie(){
+    // ===== BEST SELLING =====
+    public static void bestSellingMovies() {
+        System.out.println("===== BEST SELLING MOVIES =====");
 
-        System.out.println("\n===== BEST SELLING MOVIE =====");
+        HashMap<String, Integer> movieCount = new HashMap<>();
 
-        HashMap<String,Integer> movieCount =
-                new HashMap<>();
-
-        try{
-
-            BufferedReader br =new BufferedReader(new FileReader("booking.txt"));
+        try (BufferedReader br = new BufferedReader(new FileReader("booking.txt"))) {
 
             String line;
+            String currentMovie = "";
 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
 
-                String[] data = line.split(",");
+                if (line.startsWith("Movie:")) {
+                    currentMovie = line.substring(7).trim();
 
-                String movie = data[1];
-
-                movieCount.put(
-                        movie,
-                        movieCount.getOrDefault(movie,0) + 1
-                );
-
+                    movieCount.put(currentMovie,
+                            movieCount.getOrDefault(currentMovie, 0) + 1);
+                }
             }
 
-            br.close();
-
-            for(String movie : movieCount.keySet()){
-
-                System.out.println(
-                        movie + " - " +
-                        movieCount.get(movie) + " tickets"
-                );
-
-            }
-
-        }catch(Exception e){
-
-            System.out.println(e);
-
+        } catch (Exception e) {
+            System.out.println("Error reading booking file");
         }
 
+        if (movieCount.isEmpty()) {
+            System.out.println("No bookings yet.");
+            return;
+        }
+
+        // 排序
+        List<Map.Entry<String, Integer>> list =
+                new ArrayList<>(movieCount.entrySet());
+
+        list.sort((a, b) -> b.getValue() - a.getValue());
+
+        for (Map.Entry<String, Integer> entry : list) {
+            System.out.println(entry.getKey() + " - " +
+                    entry.getValue() + " tickets");
+        }
+
+        System.out.println();
     }
 
-    public static void peakHours(){
+    // ===== PEAK HOURS =====
+    public static void peakHours() {
+        System.out.println("===== PEAK HOURS =====");
 
-        System.out.println("\n===== PEAK HOURS =====");
+        HashMap<String, Integer> timeCount = new HashMap<>();
 
-        HashMap<String,Integer> timeCount =
-                new HashMap<>();
-
-        try{
-
-            BufferedReader br =
-                    new BufferedReader(
-                            new FileReader("booking.txt")
-                    );
+        try (BufferedReader br = new BufferedReader(new FileReader("booking.txt"))) {
 
             String line;
+            String currentTime = "";
 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
 
-                String[] data = line.split(",");
+                if (line.startsWith("Show Time:")) {
+                    currentTime = line.substring(10).trim();
 
-                String time = data[2];
-
-                timeCount.put(
-                        time,
-                        timeCount.getOrDefault(time,0) + 1
-                );
-
+                    timeCount.put(currentTime,
+                            timeCount.getOrDefault(currentTime, 0) + 1);
+                }
             }
 
-            br.close();
-
-            for(String time : timeCount.keySet()){
-
-                System.out.println(
-                        time + " - " +
-                        timeCount.get(time) + " bookings"
-                );
-
-            }
-
-        }catch(Exception e){
-
-            System.out.println(e);
-
+        } catch (Exception e) {
+            System.out.println("Error reading booking file");
         }
 
-    }
+        if (timeCount.isEmpty()) {
+            System.out.println("No bookings yet.");
+            return;
+        }
 
+        // 排序
+        List<Map.Entry<String, Integer>> list =
+                new ArrayList<>(timeCount.entrySet());
+
+        list.sort((a, b) -> b.getValue() - a.getValue());
+
+        for (Map.Entry<String, Integer> entry : list) {
+            System.out.println(entry.getKey() + " - " +
+                    entry.getValue() + " bookings");
+        }
+
+        System.out.println();
+    }
 }

@@ -1,7 +1,9 @@
+import java.util.Scanner;
 public class mainpage{
 
     public static void main(String[] args){
-
+        Scanner input = new Scanner (System.in);
+        function.clearScreen();
         System.out.println("##       ##   ##########    #######");
         System.out.println("##       ##       ##        ##");
         System.out.println("##   ##  ##       ##        ######");
@@ -14,7 +16,7 @@ public class mainpage{
         System.out.println("\nWelcome to WTF Cinema! Enjoy your movie experience!\n");
 
 
-        function.pressEnterToContinue();
+        function.pressEnterToContinue(input);
 
 
         function.clearScreen();

@@ -1,45 +1,33 @@
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-1 x Soda = RM5.0
-1 x Nachos = RM12.0
-TOTAL: RM27.0
-=========================
-
-===== ORDER FOR USER: michong =====
-2 x Popcorn = RM20.0
-TOTAL: RM20.0
-=========================
-
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-TOTAL: RM10.0
-=========================
-
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-1 x Soda = RM5.0
-TOTAL: RM15.0
-=========================
-
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-1 x Soda = RM5.0
-TOTAL: RM15.0
-=========================
-
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-1 x Soda = RM5.0
-TOTAL: RM15.0
-=========================
-
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-TOTAL: RM10.0
-=========================
-
-===== ORDER FOR USER: michong =====
-1 x Popcorn = RM10.0
-TOTAL: RM10.0
-=========================
-
+=========== F&B ORDER RECEIPT ==========
+User: michong
+Popcorn	(RM10.00) x 1		RM10.00
+Soda	(RM5.00) x 1		RM5.00
+Nachos	(RM12.00) x 1		RM12.00
+Hotdog	(RM8.00) x 1		RM8.00
+-----------------------------------------
+TOTAL: 				RM35.00
+=========================================
+=========== F&B ORDER RECEIPT ==========
+User: michong
+Popcorn	(RM10.00) x 4		RM40.00
+-----------------------------------------
+TOTAL: 				RM40.00
+=========================================
+=========== F&B ORDER RECEIPT ==========
+User: michong
+Popcorn	(RM10.00) x 1		RM10.00
+Soda	(RM5.00) x 1		RM5.00
+Nachos	(RM12.00) x 1		RM12.00
+Hotdog	(RM8.00) x 1		RM8.00
+-----------------------------------------
+TOTAL: 				RM35.00
+=========================================
+=========== F&B ORDER RECEIPT ==========
+User: michong
+Popcorn	(RM10.00) x 1		RM10.00
+Soda	(RM5.00) x 1		RM5.00
+Nachos	(RM12.00) x 1		RM12.00
+Hotdog	(RM8.00) x 1		RM8.00
+-----------------------------------------
+TOTAL: 				RM35.00
+=========================================

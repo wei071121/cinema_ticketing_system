@@ -1,82 +1,279 @@
-import java.util.Scanner;
-import java.util.Random;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class BookingSystem {
 
     static Scanner input = new Scanner(System.in);
 
-    public static void startBooking(String username){
+    // ===== TICKET SUPER CLASS =====
+    static class Ticket {
+        protected String movie;
+        protected String showTime;
+        protected String seat;
+        protected double price;
 
-        System.out.println("===== MOVIE BOOKING =====");
+        public Ticket(String movie, String showTime, String seat, double price) {
+            this.movie = movie;
+            this.showTime = showTime;
+            this.seat = seat;
+            this.price = price;
+        }
 
-        // select movie
-        System.out.println("1. Avengers");
-        System.out.println("2. Avatar");
+        public double getPrice() {
+            return price;
+        }
+    }
+
+    // ===== SUBCLASS =====
+    static class CinemaTicket extends Ticket {
+
+        public CinemaTicket(String movie, String showTime, String seat) {
+            super(movie, showTime, seat, calculatePrice(seat));
+        }
+
+        private static double calculatePrice(String seat) {
+            return (seat.charAt(0) < 'C') ? 36 : 18;
+        }
+    }
+
+    // ===== SHOWTIME =====
+    static class Showtime {
+        String time;
+        String hallSize;
+
+        public Showtime(String time, String hallSize) {
+            this.time = time;
+            this.hallSize = hallSize;
+        }
+    }
+
+    // ===== MOVIE =====
+    static class Movie {
+        String name;
+        List<Showtime> showtimes = new ArrayList<>();
+
+        public Movie(String name) {
+            this.name = name;
+        }
+    }
+
+    static List<Movie> movies = new ArrayList<>();
+
+    // ===== MAIN BOOKING =====
+    public static void startBooking(String username) {
+
+        if (movies.isEmpty()) {
+            loadMoviesFromFile("movies.txt");
+        }
+
+        if (movies.isEmpty()) {
+            System.out.println("No movies available!");
+            return;
+        }
+
+        System.out.println("===== MOVIE LIST =====");
+
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println((i + 1) + ". " + movies.get(i).name);
+        }
+
+        System.out.println("0. Exit");
+
         int movieChoice = input.nextInt();
 
-        String movieName = (movieChoice == 1) ? "Avengers" : "Avatar";
+        // EXIT
+        if (movieChoice == 0) {
+            menu.mainmenu(input, username);
+            return;
+        }
 
-        // select time
-        System.out.println("\nSelect Show Time:");
-        System.out.println("1. 18:00");
-        System.out.println("2. 21:00");
-        int timeChoice = input.nextInt();
+        movieChoice = movieChoice - 1;
 
-        String showTime = (timeChoice == 1) ? "18:00" : "21:00";
+        // VALIDATION
+        if (movieChoice < 0 || movieChoice >= movies.size()) {
+            System.out.println("Invalid movie selection!");
+            return;
+        }
 
-        // select seat
-        System.out.println("\nSelect Seat Type:");
-        System.out.println("1. VIP (RM36)");
-        System.out.println("2. Standard (RM18)");
-        int seatChoice = input.nextInt();
+        Movie movie = movies.get(movieChoice);
 
-        double seatPrice = (seatChoice == 1) ? 36 : 18;
-        String seatType = (seatChoice == 1) ? "VIP" : "Standard";
+        System.out.println("\n===== SHOWTIME =====");
 
-        input.nextLine(); // 清buffer
+        for (int i = 0; i < movie.showtimes.size(); i++) {
+            Showtime s = movie.showtimes.get(i);
+            System.out.println((i + 1) + ". " + s.time + " (" + s.hallSize + ")");
+        }
 
-        // ===== TOTAL（只剩座位价格）=====
-        double total = seatPrice;
+        int timeChoice = input.nextInt() - 1;
+        input.nextLine();
 
-        // booking id
-        Random rand = new Random();
-        int bookingId = rand.nextInt(900) + 100;
+        // VALIDATION
+        if (timeChoice < 0 || timeChoice >= movie.showtimes.size()) {
+            System.out.println("Invalid showtime!");
+            return;
+        }
 
-        System.out.println("\nBooking ID: " + bookingId);
-        System.out.printf("TOTAL: RM %.2f\n", total);
+        Showtime show = movie.showtimes.get(timeChoice);
+
+        // =======================
+        // SEAT SYSTEM
+        // =======================
+        Hall hall = createHall(show.hallSize);
+
+        new File("seats").mkdirs();
+
+        String seatFile = "seats/" + movie.name + "_" + show.time.replace(":", "-") + ".txt";
+
+        hall.loadSeats(seatFile);
+
+        hall.printSeats();
+
+        System.out.print("Select seat (e.g. A1): ");
+        String seat = input.nextLine().toUpperCase();
+
+        if (!hall.bookSeat(seat)) {
+            System.out.println("Seat taken!");
+            return;
+        }
+
+        hall.saveSeats(seatFile);
+
+        // ===== TICKET =====
+        CinemaTicket ticket = new CinemaTicket(movie.name, show.time, seat);
+
+        System.out.println("\nBooking Summary:");
+        System.out.println("Movie: " + movie.name);
+        System.out.println("Time: " + show.time);
+        System.out.println("Seat: " + seat);
+        System.out.printf("Price: RM %.2f%n", ticket.getPrice());
+
+        int bookingId = new Random().nextInt(900) + 100;
 
         // ===== PAYMENT =====
-        System.out.println("\n===== PAYMENT METHOD =====");
+        System.out.println("\nChoose Payment Method:");
         System.out.println("1. TNG");
-        System.out.println("2. Bank");
-        System.out.print("Your choice: ");
+        System.out.println("2. BANK");
 
         int method = input.nextInt();
         input.nextLine();
 
-        boolean success = false;
+        Payment payment;
 
         if (method == 1) {
-            success = payment.TNG(input, total);
-        } 
-        else if (method == 2) {
-            success = payment.bank(input, total);
+            payment = new TNGPayment(ticket.getPrice());
+        } else {
+            payment = new BankPayment(ticket.getPrice());
         }
 
-        // ===== RESULT =====
+        boolean success = payment.pay(input);
+
         if (success) {
+
             String qr = payment.generateQR();
 
             System.out.println("\nPayment Successful!");
-            System.out.println("Booking Confirmed!");
-            System.out.println("QR Code: " + qr);
+            System.out.println("Booking ID: " + bookingId);
+            System.out.println("QR: " + qr);
 
-            payment.saveBooking(
-                bookingId, username, movieName, showTime, seatType, total, qr
+            saveBooking(
+                    bookingId,
+                    username,
+                    movie.name,
+                    show.time,
+                    seat,
+                    ticket.getPrice(),
+                    qr
             );
 
         } else {
-            System.out.println("\nPayment Failed / Cancelled.");
+            System.out.println("Payment Failed / Cancelled.");
+        }
+
+        function.pressEnterToContinue(input);
+    }
+
+    // ===== SAVE BOOKING =====
+    public static void saveBooking(
+            int bookingId,
+            String username,
+            String movieName,
+            String showTime,
+            String seat,
+            double total,
+            String qr) {
+
+        StringBuilder receipt = new StringBuilder();
+
+        receipt.append("===== BOOKING RECORD =====\n");
+        receipt.append("Booking ID: ").append(bookingId).append("\n");
+        receipt.append("User: ").append(username).append("\n");
+        receipt.append("Movie: ").append(movieName).append("\n");
+        receipt.append("Show Time: ").append(showTime).append("\n");
+        receipt.append("Seat: ").append(seat).append("\n");
+        receipt.append(String.format("Total: RM %.2f%n", total));
+        receipt.append("QR Code: ").append(qr).append("\n");
+        receipt.append("===========================\n\n");
+
+        System.out.println(receipt);
+
+        try (FileWriter fw = new FileWriter("booking.txt", true)) {
+            fw.write(receipt.toString());
+        } catch (IOException e) {
+            System.out.println("Error saving booking: " + e.getMessage());
+        }
+    }
+
+    // ===== LOAD MOVIES =====
+    public static void loadMoviesFromFile(String filePath) {
+
+        movies.clear();
+
+        try (Scanner sc = new Scanner(new File(filePath))) {
+
+            Movie currentMovie = null;
+
+            while (sc.hasNextLine()) {
+
+                String line = sc.nextLine().trim();
+
+                if (line.isEmpty()) continue;
+
+                if (line.equals("---")) {
+                    currentMovie = null;
+                    continue;
+                }
+
+                String[] parts = line.split("\\|");
+
+                if (parts.length == 4) {
+                    currentMovie = new Movie(parts[0]);
+                    movies.add(currentMovie);
+                } else if (parts.length == 2 && currentMovie != null) {
+                    currentMovie.showtimes.add(
+                            new Showtime(parts[0], parts[1])
+                    );
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error loading movies: " + e.getMessage());
+        }
+    }
+
+    // ===== CREATE HALL =====
+    public static Hall createHall(String size) {
+
+        switch (size.toLowerCase()) {
+            case "small":
+                return new Hall("Small", 4, 6);
+            case "medium":
+                return new Hall("Medium", 6, 8);
+            case "large":
+                return new Hall("Large", 8, 10);
+            default:
+                return new Hall("Standard", 6, 8);
         }
     }
 }

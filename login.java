@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
+
 public class login {
 
     static final String FILE = "user.txt";
@@ -12,6 +13,7 @@ public class login {
         System.out.println("====CINIMA SYSTEM====");
         System.out.println("1. Login");
         System.out.println("2. Register");
+        System.out.println("3. Froget password");
         System.out.println("0. Exit");
         System.out.print("pls enter your choose: ");
         int userchoose = input.nextInt();
@@ -22,7 +24,10 @@ public class login {
                 loginfunction(input);
                 break;
             case 2:
-                System.out.print("goto Register function");
+                login.registerPage(input);
+                break;
+            case 3:
+                ForgotPassword.forgotPassword("user.txt",input);
                 break;
             case 0:
                 System.out.print("end the system");
@@ -53,6 +58,8 @@ public class login {
                 function.clearScreen();
                 if (role.equalsIgnoreCase("admin")) {
                     System.out.println("admin login, welcome" + username + "!");
+                   staffMenu.mainMenu(username);
+                    
                 } else {
                     System.out.println("user login, welcome " + username + "!");
                     menu.mainmenu(input,username);
@@ -91,5 +98,53 @@ static List<String> readUsers() {
         return users;
     }
 
+        public static void registerPage(Scanner input) {
+
+        System.out.println("===== USER REGISTER =====");
+
+        System.out.print("Enter username: ");
+        String username = input.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = input.nextLine();
+
+        // 默认角色 user
+        String role = "user";
+
+        // 检查是否已存在
+        if (userExists(username)) {
+            System.out.println("Username already exists!");
+            function.pressEnterToContinue(input);
+            return;
+        }
+
+        // 写入文件
+        try (FileWriter fw = new FileWriter("user.txt", true)) {
+            fw.write(username + ":" + password + ":" + role + "\n");
+            System.out.println("\nRegister successful!\n");
+        } catch (IOException e) {
+            System.out.println("Error saving user: " + e.getMessage());
+        }
+
+        function.pressEnterToContinue(input);
+        function.clearScreen();
+    }
+
+    // 检查用户是否已存在
+    public static boolean userExists(String username) {
+        try (java.util.Scanner fileScanner = new java.util.Scanner(new java.io.File("user.txt"))) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(":");
+
+                if (parts.length >= 1 && parts[0].equalsIgnoreCase(username)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            // 文件不存在也没关系（第一次注册）
+        }
+        return false;
+    }
 }
 
