@@ -33,4 +33,3 @@ Jurassic|Adventure|140|PG13
 19:45|Large
 22:45|Medium
 ---
-

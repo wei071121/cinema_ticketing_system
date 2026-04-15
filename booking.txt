@@ -68,3 +68,23 @@ Total: RM 36.00
 QR Code: QR313891
 ===========================
 
+===== BOOKING RECORD =====
+Booking ID: 508
+User: michong
+Movie: Avatar
+Show Time: 16:30
+Seat: B2
+Total: RM 36.00
+QR Code: QR946330
+===========================
+
+===== BOOKING RECORD =====
+Booking ID: 521
+User: michong
+Movie: Avatar
+Show Time: 22:30
+Seat: A2
+Total: RM 36.00
+QR Code: QR986875
+===========================
+
