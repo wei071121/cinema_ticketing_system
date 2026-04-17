@@ -1,8 +1,8 @@
 /**
- * VIP座位类 - 代表高价格的VIP座位
+ * VIP Seat class - represents premium priced VIP seats
  */
 public class VIPSeat extends Seat {
-    private static final double VIP_PRICE = 36.0;  // VIP座位价格
+    private static final double VIP_PRICE = 36.0;  // VIP seat price
 
     public VIPSeat(String seatCode) {
         super(seatCode, VIP_PRICE);
@@ -10,11 +10,11 @@ public class VIPSeat extends Seat {
 
     @Override
     public String getSeatType() {
-        return "VIP座位";
+        return "VIP";
     }
 
     @Override
     public char getDisplayChar() {
-        return booked ? 'X' : 'V';  // VIP座位用 V 表示
+        return booked ? 'X' : 'V';  // VIP seats displayed as V
     }
 }

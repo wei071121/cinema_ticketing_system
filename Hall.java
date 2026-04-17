@@ -6,8 +6,8 @@ public class Hall {
     private String name;
     private int rows;
     private int cols;
-    private Seat[][] seats;  // 使用 Seat 对象数组
-    private static final int VIP_ROWS = 2;  // 前两排为VIP座位
+    private Seat[][] seats;  // Array of Seat objects
+    private static final int VIP_ROWS = 2;  // First two rows are VIP seats
 
     public Hall(String name, int rows, int cols) {
         this.name = name;
@@ -16,7 +16,7 @@ public class Hall {
 
         seats = new Seat[rows][cols];
 
-        // 初始化座位 - 前 VIP_ROWS 行为VIP座位，其余为普通座位
+        // Initialize seats - first VIP_ROWS are VIP, rest are regular
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 String seatCode = (char)('A' + i) + String.valueOf(j + 1);
@@ -31,7 +31,7 @@ public class Hall {
 
 
     public void printSeats() {
-        System.out.println("=== " + name + " 座位图 ===");
+        System.out.println("=== " + name + " Seat Map ===");
         System.out.print("   ");
         for (int i = 1; i <= cols; i++) {
             System.out.print(i % 10 + " ");
@@ -47,7 +47,7 @@ public class Hall {
             }
             System.out.println();
         }
-        System.out.println("O = 可用  V = VIP座位  X = 已预订");
+        System.out.println("O = Available  V = VIP  X = Booked");
     }
 
     public boolean bookSeat(String seat) {
@@ -58,12 +58,12 @@ public class Hall {
             return false;
         }
 
-        // 使用 Seat 对象的 book() 方法
+        // Use the Seat object's book() method
         return seats[r][c].book();
     }
 
     public void loadSeats(String file) {
-        // 首先初始化所有座位
+        // First initialize all seats
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 String seatCode = (char)('A' + i) + String.valueOf(j + 1);
@@ -91,7 +91,7 @@ public class Hall {
                 for (int c = 0; c < line.length() && c < cols; c++) {
                     char ch = line.charAt(c);
                     if (ch == 'X') {
-                        seats[r][c].book();  // 标记为已预订
+                        seats[r][c].book();  // Mark as booked
                     }
                 }
                 r++;
@@ -124,7 +124,7 @@ public class Hall {
     }
 
     /**
-     * 获取指定座位的信息
+     * Get seat information by seat code
      */
     public Seat getSeat(String seatCode) {
         int r = seatCode.charAt(0) - 'A';
@@ -137,7 +137,7 @@ public class Hall {
     }
 
     /**
-     * 获取指定座位的价格
+     * Get seat price by seat code
      */
     public double getSeatPrice(String seatCode) {
         Seat seat = getSeat(seatCode);
@@ -145,7 +145,7 @@ public class Hall {
     }
 
     /**
-     * 检查指定座位是否是VIP座位
+     * Check if a seat is a VIP seat
      */
     public boolean isVIPSeat(String seatCode) {
         Seat seat = getSeat(seatCode);
@@ -153,14 +153,14 @@ public class Hall {
     }
 
     /**
-     * 获取大厅名称
+     * Get hall name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 获取VIP座位数量
+     * Get count of available VIP seats
      */
     public int getVIPSeatCount() {
         int count = 0;
@@ -175,7 +175,7 @@ public class Hall {
     }
 
     /**
-     * 获取普通座位数量
+     * Get count of available regular seats
      */
     public int getRegularSeatCount() {
         int count = 0;

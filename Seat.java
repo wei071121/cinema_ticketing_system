@@ -1,12 +1,12 @@
 import java.io.Serializable;
 
 /**
- * 抽象座位类，定义所有座位的基本属性和方法
+ * Abstract Seat class defining basic properties and methods for all seats
  */
 public abstract class Seat implements Serializable {
-    protected String seatCode;      // 座位代码 (例如: A1, B5)
-    protected boolean booked;       // 是否已预订
-    protected double price;         // 座位价格
+    protected String seatCode;      // Seat code (e.g., A1, B5)
+    protected boolean booked;       // Whether seat is booked
+    protected double price;         // Seat price
 
     public Seat(String seatCode, double price) {
         this.seatCode = seatCode;
@@ -15,7 +15,7 @@ public abstract class Seat implements Serializable {
     }
 
     /**
-     * 预订座位
+     * Book the seat
      */
     public boolean book() {
         if (booked) {
@@ -26,45 +26,45 @@ public abstract class Seat implements Serializable {
     }
 
     /**
-     * 取消预订座位
+     * Cancel seat booking
      */
     public void cancelBooking() {
         this.booked = false;
     }
 
     /**
-     * 获取座位代码
+     * Get the seat code
      */
     public String getSeatCode() {
         return seatCode;
     }
 
     /**
-     * 获取座位价格
+     * Get seat price
      */
     public double getPrice() {
         return price;
     }
 
     /**
-     * 获取座位是否已预订
+     * Check if the seat is booked
      */
     public boolean isBooked() {
         return booked;
     }
 
     /**
-     * 获取座位类型 (VIP 或 REGULAR)
+     * Get the seat type (VIP or REGULAR)
      */
     public abstract String getSeatType();
 
     /**
-     * 获取座位显示符号
+     * Get the character to display for this seat
      */
     public abstract char getDisplayChar();
 
     /**
-     * 将座位状态转换为字符用于保存
+     * Convert seat state to character for file saving
      */
     public char toChar() {
         return booked ? 'X' : 'O';
@@ -72,8 +72,8 @@ public abstract class Seat implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) - ¥%.2f - %s",
+        return String.format("%s (%s) - $%.2f - %s",
                 seatCode, getSeatType(), price,
-                booked ? "已预订" : "可用");
+                booked ? "Booked" : "Available");
     }
 }

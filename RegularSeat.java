@@ -1,8 +1,8 @@
 /**
- * 普通座位类 - 代表普通价格的座位
+ * Regular Seat class - represents standard price seats
  */
 public class RegularSeat extends Seat {
-    private static final double REGULAR_PRICE = 18.0;  // 普通座位价格
+    private static final double REGULAR_PRICE = 18.0;  // Regular seat price
 
     public RegularSeat(String seatCode) {
         super(seatCode, REGULAR_PRICE);
@@ -10,7 +10,7 @@ public class RegularSeat extends Seat {
 
     @Override
     public String getSeatType() {
-        return "普通座位";
+        return "Regular";
     }
 
     @Override
