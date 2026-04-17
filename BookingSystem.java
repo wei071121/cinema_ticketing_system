@@ -80,6 +80,7 @@ public class BookingSystem {
         }
 
         System.out.println("0. Exit");
+        System.out.print("\nYour choice: ");
 
         int movieChoice = input.nextInt();
 
@@ -105,6 +106,7 @@ public class BookingSystem {
             Showtime s = movie.showtimes.get(i);
             System.out.println((i + 1) + ". " + s.time + " (" + s.hallSize + ")");
         }
+        System.out.print("\nYour choice: ");
 
         int timeChoice = input.nextInt() - 1;
         input.nextLine();
@@ -155,6 +157,7 @@ public class BookingSystem {
         System.out.println("\nChoose Payment Method:");
         System.out.println("1. TNG");
         System.out.println("2. BANK");
+        System.out.print("\nYour choice");
 
         int method = input.nextInt();
         input.nextLine();
