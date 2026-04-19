@@ -157,7 +157,7 @@ public class BookingSystem {
         System.out.println("\nChoose Payment Method:");
         System.out.println("1. TNG");
         System.out.println("2. BANK");
-        System.out.print("\nYour choice");
+        System.out.print("\nYour choice: ");
 
         int method = input.nextInt();
         input.nextLine();

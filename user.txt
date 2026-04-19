@@ -2,3 +2,7 @@ admin:0000:admin
 michong:0000:user
 lol:000000:user
 pop:0000:user
+ych:123456:user
+YAP CHUN HONG:1:user
+ALI:123456:user
+BEN:123456:user
