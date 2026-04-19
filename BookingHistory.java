@@ -61,9 +61,9 @@ public class BookingHistory {
                 } else if (line.startsWith("QR Code:")) {
                     qr = line.split(":")[1].trim();
                 } else if (line.startsWith("================")) {
-                    // 到达一条记录结束
+                    // End of one record
                     history.add(new BookingRecord(bookingId, user, movie, showTime, seat, total, qr));
-                    // 重置变量
+                    // Reset variables
                     bookingId = 0; user = ""; movie = ""; showTime = ""; seat = ""; qr = ""; total = 0;
                 }
             }
@@ -75,7 +75,7 @@ public class BookingHistory {
         return history;
     }
 
-    // 测试打印历史记录
+    // Test print history records
     public static void printHistory(String filename) {
         List<BookingRecord> history = readBookingHistory(filename);
         System.out.println("===== BOOKING HISTORY =====\n");

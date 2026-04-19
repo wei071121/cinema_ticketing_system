@@ -108,10 +108,10 @@ static List<String> readUsers() {
         System.out.print("Enter password: ");
         String password = input.nextLine();
 
-        // 默认角色 user
+        // Default role is user
         String role = "user";
 
-        // 检查是否已存在
+        // Check if username already exists
         if (userExists(username)) {
             System.out.println("Username already exists!");
             function.pressEnterToContinue(input);
@@ -130,7 +130,7 @@ static List<String> readUsers() {
         function.clearScreen();
     }
 
-    // 检查用户是否已存在
+    // Check if username already exists
     public static boolean userExists(String username) {
         try (java.util.Scanner fileScanner = new java.util.Scanner(new java.io.File("user.txt"))) {
             while (fileScanner.hasNextLine()) {

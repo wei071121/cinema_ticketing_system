@@ -15,7 +15,7 @@ public class ForgotPassword {
             boolean found = false;
             String password = null;
 
-            // 找用户
+            // Find user
             while ((line = br.readLine()) != null) {
 
                 String[] parts = line.split(":");
@@ -34,7 +34,7 @@ public class ForgotPassword {
                 return;
             }
 
-            // 输入 6 位数（不验证内容，只检查长度）
+            // Enter a 6-digit code (only checks length)
             System.out.print("Enter 6-digit code: ");
             String code = input.nextLine();
 

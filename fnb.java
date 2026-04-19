@@ -51,7 +51,7 @@ public class fnb {
                 if (paid) {
                     System.out.println("Press Enter to return to main menu...");
                     input.nextLine();
-                    running = false; // 支付完成退出 F&B 菜单
+                    running = false; // Exit F&B menu after successful payment
                 }
             } else if (choice.equals("0")) {
                 running = false;
@@ -101,7 +101,7 @@ public class fnb {
         return choice - 1;
     }
 
-    // Checkout 并支付
+    // Checkout and pay
     public static boolean checkoutAndPay(Scanner input, String username, String[] items, double[] prices, int[] quantities) {
         double total = 0;
         StringBuilder receipt = new StringBuilder();
@@ -128,10 +128,10 @@ public class fnb {
         receipt.append("TOTAL: \t\t\t\tRM").append(String.format("%.2f", total)).append("\n");
         receipt.append("=========================================\n");
 
-        // 打印收据
+        // Print receipt
         System.out.println(receipt.toString());
 
-        // 保存到文件
+        // Save to file
         try (FileWriter writer = new FileWriter(fileName, true)) {
             writer.write(receipt.toString());
         } catch (IOException e) {

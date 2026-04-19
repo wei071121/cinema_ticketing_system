@@ -38,7 +38,7 @@ public class menu {
 
                     boolean hasRecord = false;
                     for (BookingRecord record : history) {
-                        if (record.user.equals(username)) {  // 只显示特定用户
+                        if (record.user.equals(username)) {  // Only show records for this user
                             System.out.println(record);
                             hasRecord = true;
                         }
@@ -67,10 +67,10 @@ public class menu {
             }
 
             if(choice != 0){
-                function.clearScreen(); // 循环末尾再清屏
+                function.clearScreen(); // Clear screen at end of loop
             }
 
-        } while(choice != 0); // 正确闭合 while
+        } while(choice != 0); // Properly close the while loop
 
     }
 }

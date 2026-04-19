@@ -17,15 +17,15 @@ public class fnbHistory {
 
             while ((line = br.readLine()) != null) {
 
-                // ===== 订单开始 =====
+                // ===== Order begins =====
                 if (line.contains("F&B ORDER RECEIPT")) {
 
-                    String userLine = br.readLine(); // 读取 User 行
+                    String userLine = br.readLine(); // Read User line
 
                     if (userLine != null && userLine.toLowerCase().contains(username.toLowerCase())) {
 
                         isUserRecord = true;
-                        record.setLength(0); // 清空旧记录
+                        record.setLength(0); // Clear previous record
 
                         record.append(line).append("\n");
                         record.append(userLine).append("\n");
@@ -34,15 +34,15 @@ public class fnbHistory {
                         isUserRecord = false;
                     }
 
-                    continue; // 很重要，避免重复处理
+                    continue; // Important to avoid duplicate processing
                 }
 
-                // ===== 如果是当前用户订单，继续记录 =====
+                // ===== Continue recording if this is the current user's order =====
                 if (isUserRecord) {
                     record.append(line).append("\n");
                 }
 
-                // ===== 订单结束 =====
+                // ===== Order ends =====
                 if (line.contains("====") && isUserRecord) {
 
                     allRecords.append(record.toString()).append("\n");

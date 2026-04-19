@@ -5,7 +5,7 @@ public class staffMenu {
 
     static Scanner input = new Scanner(System.in);
 
-    // 文件路径
+    // File path
     static final String MOVIE_FILE = "movies.txt";
 
     public static void mainMenu(String staffName) {
@@ -20,6 +20,7 @@ public class staffMenu {
             System.out.println("4. Add Showtime");
             System.out.println("5. Remove Showtime");
             System.out.println("6. Report Best Selling Movies/Peak Hours");
+            System.out.println("7. Report F&B Sales");
             System.out.println("0. Logout");
             System.out.print("Your choice: ");
             choice = input.nextInt(); input.nextLine();
@@ -30,14 +31,15 @@ public class staffMenu {
                 case 3: removeMovie(); break;
                 case 4: addShowtime(); break;
                 case 5: removeShowtime(); break;
-                case 6: ReportSystem.showReports(input); break;
+                case 6: new ReportSystem().showReports(input); break;
+                case 7: new FnbReport().showReport(input); break;
                 case 0: System.out.println("Logging out..."); function.pressEnterToContinue(input); break;
                 default: System.out.println("Invalid input!"); function.pressEnterToContinue(input); break;
             }
         } while(choice != 0);
     }
 
-    // Movie 类
+    // Movie class
     static class Movie {
         String title;
         String genre;
@@ -54,7 +56,7 @@ public class staffMenu {
         }
     }
 
-    // 读取 movies.txt 文件
+    // Load movies from movies.txt file
     static List<Movie> loadMovies() {
         List<Movie> movies = new ArrayList<>();
         try (Scanner sc = new Scanner(new File(MOVIE_FILE))) {
@@ -65,7 +67,7 @@ public class staffMenu {
                 if (line.equals("---")) { current = null; continue; }
 
                 if (current == null) {
-                    // 新电影: Title|Genre|Duration|AgeRating
+                    // New movie: Title|Genre|Duration|AgeRating
                     String[] parts = line.split("\\|");
                     if (parts.length == 4) {
                         current = new Movie(parts[0], parts[1], Integer.parseInt(parts[2]), parts[3]);
@@ -82,7 +84,7 @@ public class staffMenu {
         return movies;
     }
 
-    // 保存 movies 到文件
+    // Save movies to file
     static void saveMovies(List<Movie> movies) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(MOVIE_FILE))) {
             for (Movie m : movies) {

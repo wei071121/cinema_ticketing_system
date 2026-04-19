@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class function {
 
-    // 安全等待用户按回车
+    // Safely wait for the user to press Enter
     public static void pressEnterToContinue(Scanner input) {
         System.out.println("Press Enter to continue...");
-        input.nextLine(); // 读取整行，避免跳过
+        input.nextLine(); // Read the whole line to avoid skipping
     }
 
     public static void clearScreen() {
